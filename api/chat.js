@@ -1,7 +1,6 @@
 export default async function handler(req, res) {
   const { prompt } = req.body;
   
-  // يقرأ المفتاح تلقائياً من Vercel Environment Variables
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
@@ -13,7 +12,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // تم استخدام الموديل الموضح في الصورة gemini-3.8-flash
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
