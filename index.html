@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AI BET ELITE - الرئيسية</title>
+    <!-- مكتبة تيليجرام - ضرورية للـ Mini App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-color: #0b1525; /* خلفية داكنة فاخرة */
+            --primary-accent: #07c160; /* أخضر الأرباح */
+            --card-bg: #142135; /* لون الكروت */
+            --text-color: #e6e9ef; /* النص الأساسي */
+            --sub-text: #a1b0c7; /* النص الفرعي */
+            --golden-accent: #ffb74d; /* الذهبي للنخبة */
+            --input-bg: #0b1525;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            padding-bottom: 80px;
+        }
+
+        /* الهيدر الجديد مع AI BET ELITE */
+        .header {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--text-color);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .header h1 span {
+            color: var(--primary-accent);
+        }
+
+        .header h1 span.gold {
+            color: var(--golden-accent);
+        }
+
+        .header p {
+            font-size: 13px;
+            color: var(--sub-text);
+        }
+
+        /* كرت الترحيب والذكاء الاصطناعي */
+        .welcome-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(7, 193, 96, 0.2);
+        }
+
+        .welcome-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card-header span {
+            font-size: 13px;
+            color: var(--primary-accent);
+            font-weight: bold;
+        }
+
+        .welcome-card p {
+            font-size: 13px;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .welcome-card h2 {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--golden-accent);
+        }
+
+        /* شبكة الخيارات */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .option-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .option-card:active {
+            transform: scale(0.98);
+        }
+
+        .option-card.vip {
+            border: 1px solid rgba(255, 183, 77, 0.4);
+            background: linear-gradient(135deg, #142135 0%, #1a2a44 100%);
+        }
+
+        .option-icon {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .icon-live { color: #f44336; }
+        .icon-upcoming { color: #2196f3; }
+        .icon-search { color: #ffeb3b; }
+        .icon-vip { color: var(--golden-accent); }
+
+        .option-card h3 {
+            font-size: 14px;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .option-card p {
+            font-size: 11px;
+            color: var(--sub-text);
+        }
+
+        /* زر الإعدادات */
+        .settings-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
+
+        .settings-card i {
+            font-size: 16px;
+            color: var(--sub-text);
+        }
+
+        .settings-card span {
+            font-size: 13px;
+            color: var(--text-color);
+        }
+
+        /* شات بار السفلي */
+        .chat-bar {
+            background-color: var(--card-bg);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+        }
+
+        .chat-input {
+            flex: 1;
+            background-color: var(--input-bg);
+            border-radius: 20px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            color: var(--sub-text);
+            font-size: 13px;
+        }
+
+        .chat-input i {
+            font-size: 16px;
+            color: var(--sub-text);
+            margin-left: 8px;
+        }
+
+        .icon-menu { font-size: 20px; color: var(--sub-text); }
+        .icon-mic { font-size: 18px; color: var(--sub-text); }
+        .icon-image { font-size: 18px; color: var(--sub-text); }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="content-container">
+        <!-- الهيدر باسم AI BET ELITE -->
+        <div class="header">
+            <h1><span>AI</span> <span>BET</span> <span class="gold">ELITE</span></h1>
+            <p>AI-Powered Football Predictions & Wealth Intelligence</p>
+        </div>
+
+        <!-- كرت الترحيب -->
+        <div class="welcome-card">
+            <div class="welcome-card-header">
+                <span>🤖 ذكاء اصطناعي فائق الدقة</span>
+                <i class="far fa-clock" style="color: var(--sub-text);"></i>
+            </div>
+            <p>أهلاً بك في منصة التحليل الأقوى. أحلل مباريات كرة القدم بأحدث خوارزميات الـ AI لتقديم أفضل الفرص والتوقعات لتحقيق أهدافك.</p>
+            <h2>اختر قسم التحليل للبدء:</h2>
+        </div>
+
+        <!-- شبكة الخيارات -->
+        <div class="options-grid">
+            <div class="option-card">
+                <i class="far fa-futbol option-icon icon-live"></i>
+                <h3>المباريات الحية</h3>
+                <p>تحديثات وتحليلات مباشرة</p>
+            </div>
+            <div class="option-card">
+                <i class="far fa-calendar-alt option-icon icon-upcoming"></i>
+                <h3>مباريات قادمة</h3>
+                <p>توقعات اليوم والغد</p>
+            </div>
+            <div class="option-card">
+                <i class="fas fa-search option-icon icon-search"></i>
+                <h3>البحث عن فريق</h3>
+                <p>قراءة شاملة لحالة الفرق</p>
+            </div>
+            <div class="option-card vip">
+                <i class="fas fa-crown option-icon icon-vip"></i>
+                <h3>VIP النخبة</h3>
+                <p>توقعات الأرباح الحصرية</p>
+            </div>
+        </div>
+
+        <!-- زر الإعدادات -->
+        <div class="settings-card">
+            <i class="fas fa-cog"></i>
+            <span>إعدادات اللغة والمنصة</span>
+        </div>
+    </div>
+
+    <!-- شات بار السفلي -->
+    <div class="chat-bar">
+        <i class="fas fa-bars icon-menu"></i>
+        <div class="chat-input">
+            <i class="far fa-face-smile"></i>
+            <span>اسأل محلل الـ AI عن أي مباراة...</span>
+        </div>
+        <i class="fas fa-image icon-image"></i>
+        <i class="fas fa-microphone icon-mic"></i>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        const cards = document.querySelectorAll('.option-card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                tg.HapticFeedback.impactOccurred('medium'); // هزة خفيفة زي التطبيقات الكبيرة
+            });
+        });
+    </script>
+</body>
+</html>
