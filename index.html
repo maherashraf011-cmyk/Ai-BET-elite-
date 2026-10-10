@@ -1,392 +1,439 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>AI BET ELITE - الرئيسية</title>
-    <!-- مكتبة تيليجرام - ضرورية للـ Mini App -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        :root {
-            --bg-color: #0b1525; /* خلفية داكنة فاخرة */
-            --primary-accent: #07c160; /* أخضر الأرباح */
-            --card-bg: #142135; /* لون الكروت */
-            --text-color: #e6e9ef; /* النص الأساسي */
-            --sub-text: #a1b0c7; /* النص الفرعي */
-            --golden-accent: #ffb74d; /* الذهبي للنخبة */
-            --input-bg: #0b1525;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI BET ELITE - Football Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b0e14;
+      --bg-secondary: #121824;
+      --bg-card: #1a2232;
+      --border-color: #2a354d;
+      --accent-blue: #00e5ff;
+      --accent-gold: #ffd700;
+      --text-main: #ffffff;
+      --text-muted: #8e9bb0;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      padding-bottom: 80px;
+    }
 
-        .content-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            padding-bottom: 90px;
-        }
+    /* Header */
+    header {
+      padding: 16px;
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* الهيدر الجديد مع AI BET ELITE */
-        .header {
-            text-align: center;
-            margin-top: 15px;
-            margin-bottom: 20px;
-        }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--accent-blue);
+      letter-spacing: 0.5px;
+    }
 
-        .header h1 {
-            font-size: 26px;
-            font-weight: bold;
-            color: var(--text-color);
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
-        .header h1 span {
-            color: var(--primary-accent);
-        }
+    .lang-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
 
-        .header h1 span.gold {
-            color: var(--golden-accent);
-        }
+    /* Cards Layout */
+    .container {
+      padding: 16px;
+    }
 
-        .header p {
-            font-size: 13px;
-            color: var(--sub-text);
-        }
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
 
-        /* كرت الترحيب والذكاء الاصطناعي */
-        .welcome-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(7, 193, 96, 0.2);
-        }
+    .card {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-        .welcome-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
+    .card:active {
+      transform: scale(0.97);
+      border-color: var(--accent-blue);
+    }
 
-        .welcome-card-header span {
-            font-size: 13px;
-            color: var(--primary-accent);
-            font-weight: bold;
-        }
+    .card-gold {
+      background: linear-gradient(135deg, #1f1a0a 0%, #33270d 100%);
+      border: 1px solid var(--accent-gold);
+    }
 
-        .welcome-card p {
-            font-size: 13px;
-            color: var(--text-color);
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
+    .card-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
 
-        .welcome-card h2 {
-            font-size: 15px;
-            font-weight: bold;
-            color: var(--golden-accent);
-        }
+    .card-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-        /* صندوق عرض الردود */
-        .response-box {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 183, 77, 0.3);
-            display: none;
-        }
+    .card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
-        .response-box h4 {
-            font-size: 13px;
-            color: var(--golden-accent);
-            margin-bottom: 6px;
-        }
+    /* Chat Area */
+    .chat-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .response-box p {
-            font-size: 13px;
-            color: var(--text-color);
-            line-height: 1.5;
-        }
+    .chat-header {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        /* شبكة الخيارات */
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            margin-bottom: 20px;
-        }
+    .messages-container {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-right: 4px;
+    }
 
-        .option-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    .message {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 85%;
+      word-wrap: break-word;
+    }
 
-        .option-card:active {
-            transform: scale(0.98);
-        }
+    .message.user {
+      align-self: flex-start;
+      background-color: var(--border-color);
+      color: #fff;
+    }
 
-        .option-card.vip {
-            border: 1px solid rgba(255, 183, 77, 0.4);
-            background: linear-gradient(135deg, #142135 0%, #1a2a44 100%);
-        }
+    .message.ai {
+      align-self: flex-end;
+      background-color: rgba(0, 229, 255, 0.1);
+      border: 1px solid var(--accent-blue);
+      color: #fff;
+    }
 
-        .option-icon {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
 
-        .icon-live { color: #f44336; }
-        .icon-upcoming { color: #2196f3; }
-        .icon-search { color: #ffeb3b; }
-        .icon-vip { color: var(--golden-accent); }
+    .input-group input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
 
-        .option-card h3 {
-            font-size: 14px;
-            color: var(--text-color);
-            margin-bottom: 4px;
-        }
+    .input-group button {
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: var(--accent-blue);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .option-card p {
-            font-size: 11px;
-            color: var(--sub-text);
-        }
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65px;
+      background-color: rgba(18, 24, 36, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
 
-        /* زر الإعدادات */
-        .settings-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-        }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
 
-        .settings-card i {
-            font-size: 16px;
-            color: var(--sub-text);
-        }
+    .nav-item.active {
+      color: var(--accent-blue);
+      font-weight: bold;
+    }
 
-        .settings-card span {
-            font-size: 13px;
-            color: var(--text-color);
-        }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-        /* شات بار السفلي */
-        .chat-bar {
-            background-color: var(--card-bg);
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            z-index: 1000;
-        }
-
-        .chat-input-wrapper {
-            flex: 1;
-            background-color: var(--input-bg);
-            border-radius: 20px;
-            padding: 6px 14px;
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .chat-input-wrapper input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            font-size: 13px;
-            outline: none;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        .chat-input-wrapper input::placeholder {
-            color: var(--sub-text);
-        }
-
-        .send-btn {
-            background-color: var(--primary-accent);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-
-        .send-btn:active {
-            opacity: 0.8;
-        }
-
-        .icon-menu { font-size: 20px; color: var(--sub-text); cursor: pointer; }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 360px;
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="content-container">
-        <!-- الهيدر باسم AI BET ELITE -->
-        <div class="header">
-            <h1><span>AI</span> <span>BET</span> <span class="gold">ELITE</span></h1>
-            <p>AI-Powered Football Predictions & Wealth Intelligence</p>
-        </div>
+  <!-- Header -->
+  <header>
+    <div>
+      <div class="brand-title" id="txt-title">AI BET ELITE</div>
+      <div class="brand-subtitle" id="txt-subtitle">ذكاء اصطناعي فائق الدقة لتحليل المباريات</div>
+    </div>
+    <button class="lang-btn" onclick="openLangModal()">🌐 <span id="current-lang-name">العربية</span></button>
+  </header>
 
-        <!-- كرت الترحيب -->
-        <div class="welcome-card">
-            <div class="welcome-card-header">
-                <span>🤖 ذكاء اصطناعي فائق الدقة</span>
-                <i class="far fa-clock" style="color: var(--sub-text);"></i>
-            </div>
-            <p>أهلاً بك في منصة التحليل الأقوى. أحلل مباريات كرة القدم بأحدث خوارزميات الـ AI لتقديم أفضل الفرص والتوقعات لتحقيق أهدافك.</p>
-            <h2>اختر قسم التحليل للبدء:</h2>
-        </div>
+  <!-- Container -->
+  <div class="container">
+    
+    <!-- Cards Grid -->
+    <div class="grid-cards">
+      <div class="card" onclick="quickPrompt('المباريات الحية والنتائج المباشرة')">
+        <div class="card-icon">⚽</div>
+        <div class="card-title" id="btn-live">المباريات الحية</div>
+        <div class="card-desc">تحديثات وتحليلات مباشرة</div>
+      </div>
 
-        <!-- صندوق عرض رد الـ AI -->
-        <div id="responseBox" class="response-box">
-            <h4>تحليل الـ AI:</h4>
-            <p id="responseText">جاري انتظار السؤال...</p>
-        </div>
+      <div class="card" onclick="quickPrompt('مباريات اليوم والغد والقنوات الناقلة')">
+        <div class="card-icon">📅</div>
+        <div class="card-title" id="btn-upcoming">مباريات قادمة</div>
+        <div class="card-desc">توقعات اليوم والغد</div>
+      </div>
 
-        <!-- شبكة الخيارات -->
-        <div class="options-grid">
-            <div class="option-card" onclick="askQuick('أعطني توقعات المباريات الحية اليوم')">
-                <i class="far fa-futbol option-icon icon-live"></i>
-                <h3>المباريات الحية</h3>
-                <p>تحديثات وتحليلات مباشرة</p>
-            </div>
-            <div class="option-card" onclick="askQuick('ما هي أهم مباريات اليوم القادمة؟')">
-                <i class="far fa-calendar-alt option-icon icon-upcoming"></i>
-                <h3>مباريات قادمة</h3>
-                <p>توقعات اليوم والغد</p>
-            </div>
-            <div class="option-card" onclick="askQuick('ابحث لي عن حالة الفريقين الأبرز اليوم')">
-                <i class="fas fa-search option-icon icon-search"></i>
-                <h3>البحث عن فريق</h3>
-                <p>قراءة شاملة لحالة الفرق</p>
-            </div>
-            <div class="option-card vip" onclick="askQuick('ما هي توقعات الأرباح الحصرية لـ VIP النخبة؟')">
-                <i class="fas fa-crown option-icon icon-vip"></i>
-                <h3>VIP النخبة</h3>
-                <p>توقعات الأرباح الحصرية</p>
-            </div>
-        </div>
+      <div class="card card-gold" onclick="quickPrompt('تحليل التوقعات عالية الأرباح VIP')">
+        <div class="card-icon">👑</div>
+        <div class="card-title" style="color: var(--accent-gold);" id="btn-vip">VIP النخبة</div>
+        <div class="card-desc">توقعات الأرباح الحصرية</div>
+      </div>
 
-        <!-- زر الإعدادات -->
-        <div class="settings-card">
-            <i class="fas fa-cog"></i>
-            <span>إعدادات اللغة والمنصة</span>
-        </div>
+      <div class="card" onclick="quickPrompt('تحليل حالة الفرق الحالية والغيابات')">
+        <div class="card-icon">🔍</div>
+        <div class="card-title" id="btn-search">البحث عن فريق</div>
+        <div class="card-desc">قراءة شاملة لحالة الفرق</div>
+      </div>
     </div>
 
-    <!-- شات بار السفلي -->
-    <div class="chat-bar">
-        <i class="fas fa-bars icon-menu"></i>
-        <div class="chat-input-wrapper">
-            <input type="text" id="userInput" placeholder="اسأل محلل الـ AI عن أي مباراة...">
+    <!-- AI Chat Box -->
+    <div class="chat-box">
+      <div class="chat-header">
+        🤖 <span id="txt-ai-title">محلل الـ AI الرياضي</span>
+      </div>
+      
+      <div class="messages-container" id="messages">
+        <div class="message ai" id="msg-welcome">
+          أهلاً بك في منصة AI BET ELITE. اكتب اسم أي مباراة أو فريق للحصول على تحليل فوري ومباشر!
         </div>
-        <button class="send-btn" onclick="sendPrompt()">
-            <i class="fas fa-paper-plane"></i>
-        </button>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="user-input" placeholder="اسأل محلل الـ AI عن أي مباراة..." onkeypress="handleKey(event)">
+        <button onclick="sendMessage()" id="btn-send">إرسال</button>
+      </div>
     </div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        
-        // تأثير الهزة عند الضغط على الكروت
-        const cards = document.querySelectorAll('.option-card');
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                if(tg.HapticFeedback) {
-                    tg.HapticFeedback.impactOccurred('medium');
-                }
-            });
+  </div>
+
+  <!-- Language Modal -->
+  <div class="modal" id="langModal">
+    <div class="modal-content">
+      <h3 style="margin-bottom: 15px; color: var(--accent-blue); text-align: center;">اختر اللغة / Select Language</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="card" style="text-align: right;" onclick="setLanguage('ar')">🇪🇬 العربية</button>
+        <button class="card" style="text-align: left;" onclick="setLanguage('en')">🇬🇧 English</button>
+        <button class="card" style="text-align: left;" onclick="setLanguage('fr')">🇫🇷 Français</button>
+        <button class="card" style="text-align: left;" onclick="setLanguage('es')">🇪🇸 Español</button>
+      </div>
+      
+      <button onclick="closeLangModal()" style="margin-top: 15px; width: 100%; padding: 10px; border-radius: 10px; background: transparent; border: 1px solid var(--border-color); color: #fff; cursor: pointer;">إلغاء / Cancel</button>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <span>🏠</span>
+      <span id="nav-home">الرئيسية</span>
+    </div>
+    <div class="nav-item" onclick="quickPrompt('جدول المباريات الحية')">
+      <span>⚽</span>
+      <span id="nav-matches">المباريات</span>
+    </div>
+    <div class="nav-item" onclick="quickPrompt('تحليل التوقعات الشاملة')">
+      <span>📊</span>
+      <span id="nav-analysis">التحليل</span>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      ar: {
+        title: "AI BET ELITE", subtitle: "ذكاء اصطناعي فائق الدقة لتحليل المباريات",
+        live: "المباريات الحية", upcoming: "مباريات قادمة", vip: "VIP النخبة", search: "البحث عن فريق",
+        aiTitle: "محلل الـ AI الرياضي", welcome: "أهلاً بك في منصة AI BET ELITE. اكتب اسم أي مباراة أو فريق للحصول على تحليل فوري ومباشر!",
+        placeholder: "اسأل محلل الـ AI عن أي مباراة...", send: "إرسال", home: "الرئيسية", matches: "المباريات", analysis: "التحليل", langName: "العربية"
+      },
+      en: {
+        title: "AI BET ELITE", subtitle: "High-Precision Football AI Analytics",
+        live: "Live Matches", upcoming: "Upcoming Matches", vip: "VIP Elite", search: "Team Search",
+        aiTitle: "AI Sports Analyst", welcome: "Welcome to AI BET ELITE. Type any match or team name to get real-time analysis!",
+        placeholder: "Ask AI Analyst about any match...", send: "Send", home: "Home", matches: "Matches", analysis: "Analysis", langName: "English"
+      },
+      fr: {
+        title: "AI BET ELITE", subtitle: "Analyse Football IA Haute Précision",
+        live: "Matchs En Direct", upcoming: "Matchs À Venir", vip: "VIP Élite", search: "Rechercher Équipe",
+        aiTitle: "Analyste IA Sport", welcome: "Bienvenue sur AI BET ELITE. Tapez un match ou une équipe pour une analyse en direct!",
+        placeholder: "Posez une question sur un match...", send: "Envoyer", home: "Accueil", matches: "Matchs", analysis: "Analyse", langName: "Français"
+      },
+      es: {
+        title: "AI BET ELITE", subtitle: "Análisis de Fútbol de Alta Precisión con IA",
+        live: "Partidos en Vivo", upcoming: "Próximos Partidos", vip: "VIP Élite", search: "Buscar Equipo",
+        aiTitle: "Analista IA Deportivo", welcome: "¡Bienvenido a AI BET ELITE. Escribe un partido o equipo para obtener análisis en tiempo real!",
+        placeholder: "Pregunta sobre cualquier partido...", send: "Enviar", home: "Inicio", matches: "Partidos", analysis: "Análisis", langName: "Español"
+      }
+    };
+
+    let currentLang = 'ar';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      
+      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      document.getElementById('txt-title').innerText = t.title;
+      document.getElementById('txt-subtitle').innerText = t.subtitle;
+      document.getElementById('btn-live').innerText = t.live;
+      document.getElementById('btn-upcoming').innerText = t.upcoming;
+      document.getElementById('btn-vip').innerText = t.vip;
+      document.getElementById('btn-search').innerText = t.search;
+      document.getElementById('txt-ai-title').innerText = t.aiTitle;
+      document.getElementById('msg-welcome').innerText = t.welcome;
+      document.getElementById('user-input').placeholder = t.placeholder;
+      document.getElementById('btn-send').innerText = t.send;
+      document.getElementById('nav-home').innerText = t.home;
+      document.getElementById('nav-matches').innerText = t.matches;
+      document.getElementById('nav-analysis').innerText = t.analysis;
+      document.getElementById('current-lang-name').innerText = t.langName;
+
+      closeLangModal();
+    }
+
+    function openLangModal() { document.getElementById('langModal').style.display = 'flex'; }
+    function closeLangModal() { document.getElementById('langModal').style.display = 'none'; }
+
+    function handleKey(e) { if (e.key === 'Enter') sendMessage(); }
+
+    function quickPrompt(text) {
+      document.getElementById('user-input').value = text;
+      sendMessage();
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('user-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('messages');
+
+      // Add User Message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message user';
+      userMsg.innerText = text;
+      container.appendChild(userMsg);
+
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // Add Loading Indicator
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = 'message ai';
+      loadingMsg.innerText = 'جاري التحليل... ⏳';
+      container.appendChild(loadingMsg);
+      container.scrollTop = container.scrollHeight;
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text })
         });
 
-        // دالة إرسال النص للـ API
-        async function sendPrompt() {
-            const inputField = document.getElementById('userInput');
-            const promptText = inputField.value.trim();
-            const responseBox = document.getElementById('responseBox');
-            const responseText = document.getElementById('responseText');
-
-            if (!promptText) return;
-
-            responseBox.style.display = 'block';
-            responseText.innerHTML = 'جاري تحليل البيانات بواسطة الـ AI... ⏳';
-
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ prompt: promptText })
-                });
-
-                const data = await response.json();
-                
-                if (data && data.reply) {
-                    responseText.innerHTML = data.reply;
-                } else if (data && data.error) {
-                    responseText.innerHTML = 'خطأ من السيرفر: ' + data.error;
-                } else {
-                    responseText.innerHTML = 'تم الإرسال بنجاح، بانتظار الرد.';
-                }
-            } catch (error) {
-                console.error("خطأ في الاتصال:", error);
-                responseText.innerHTML = 'عذراً، حدث خطأ أثناء الاتصال بالخادم. تأكد من إعدادات الـ API.';
-            }
-
-            inputField.value = '';
-        }
-
-        // دالة مساعدة للأزرار السريعة
-        function askQuick(question) {
-            document.getElementById('userInput').value = question;
-            sendPrompt();
-        }
-    </script>
+        const data = await response.json();
+        loadingMsg.innerText = data.reply || "تم الاستلام ولكن لم يتم توليد رد.";
+      } catch (error) {
+        loadingMsg.innerText = "حدث خطأ أثناء الاتصال بالسيرفر.";
+      }
+      container.scrollTop = container.scrollHeight;
+    }
+  </script>
 </body>
 </html>
