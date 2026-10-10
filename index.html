@@ -1,439 +1,152 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AI BET ELITE - Football Intelligence</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-primary: #0b0e14;
-      --bg-secondary: #121824;
-      --bg-card: #1a2232;
-      --border-color: #2a354d;
-      --accent-blue: #00e5ff;
-      --accent-gold: #ffd700;
-      --text-main: #ffffff;
-      --text-muted: #8e9bb0;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Cairo', 'Inter', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      padding-bottom: 80px;
-    }
-
-    /* Header */
-    header {
-      padding: 16px;
-      background-color: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand-title {
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--accent-blue);
-      letter-spacing: 0.5px;
-    }
-
-    .brand-subtitle {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .lang-btn {
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      background-color: var(--bg-card);
-      color: #fff;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    /* Cards Layout */
-    .container {
-      padding: 16px;
-    }
-
-    .grid-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .card {
-      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .card:active {
-      transform: scale(0.97);
-      border-color: var(--accent-blue);
-    }
-
-    .card-gold {
-      background: linear-gradient(135deg, #1f1a0a 0%, #33270d 100%);
-      border: 1px solid var(--accent-gold);
-    }
-
-    .card-icon {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .card-title {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .card-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Chat Area */
-    .chat-box {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 16px;
-      height: 380px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chat-header {
-      font-size: 14px;
-      font-weight: bold;
-      color: var(--accent-blue);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .messages-container {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 12px;
-      padding-right: 4px;
-    }
-
-    .message {
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      line-height: 1.5;
-      max-width: 85%;
-      word-wrap: break-word;
-    }
-
-    .message.user {
-      align-self: flex-start;
-      background-color: var(--border-color);
-      color: #fff;
-    }
-
-    .message.ai {
-      align-self: flex-end;
-      background-color: rgba(0, 229, 255, 0.1);
-      border: 1px solid var(--accent-blue);
-      color: #fff;
-    }
-
-    .input-group {
-      display: flex;
-      gap: 8px;
-    }
-
-    .input-group input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 10px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-color);
-      color: #fff;
-      font-size: 13px;
-      outline: none;
-    }
-
-    .input-group button {
-      padding: 12px 18px;
-      border-radius: 10px;
-      background: var(--accent-blue);
-      border: none;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* Bottom Nav */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 65px;
-      background-color: rgba(18, 24, 36, 0.95);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    .nav-item.active {
-      color: var(--accent-blue);
-      font-weight: bold;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(5px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 360px;
-      padding: 20px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#061321">
+<title>AI BET ELITE — Football Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#061321;--panel:#0b1d30;--card:#0d243b;--card2:#102b45;--line:#173a58;--blue:#168cff;--cyan:#26d9f4;--gold:#f5c45d;--muted:#89a2ba;--text:#edf7ff;--green:#26d99a;--red:#ff536b;--shadow:0 14px 35px #0005}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(ellipse at 50% -15%,#123d62 0,transparent 42%),var(--bg);color:var(--text);font-family:Inter,Cairo,sans-serif;min-height:100vh;padding-bottom:86px}
+button,input{font:inherit}button{cursor:pointer;color:inherit}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-bottom:1px solid #17324b;background:#071727eF;position:sticky;top:0;z-index:30;backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}.logo{height:42px;width:42px;border-radius:50%;display:grid;place-items:center;border:1px solid #3c7799;background:linear-gradient(145deg,#183b58,#071421);box-shadow:0 0 20px #168cff25;font-size:23px}.brand h1{font-size:16px;letter-spacing:.7px;font-weight:900}.brand p{font-size:10px;color:var(--muted);margin-top:3px}.top-actions{display:flex;gap:8px}.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:var(--card);display:grid;place-items:center;font-size:17px}
+.shell{max-width:900px;margin:auto;padding:17px 14px 24px}.hero{padding:22px 19px;border:1px solid #1a4867;border-radius:22px;background:linear-gradient(130deg,#0d2d49,#09192a 65%,#102b40);box-shadow:var(--shadow);position:relative;overflow:hidden;margin-bottom:15px}.hero:after{content:"";position:absolute;width:200px;height:200px;border-radius:50%;right:-65px;top:-90px;background:#168cff15;filter:blur(2px)}.hero-kicker{font-size:10px;letter-spacing:2px;color:var(--cyan);font-weight:800}.hero h2{font-size:25px;line-height:1.25;margin:8px 0}.hero p{font-size:12px;color:#a9bfd2;line-height:1.8;max-width:500px}.hero-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.hero-ball{font-size:55px;filter:drop-shadow(0 0 15px #168cff45)}.eyebrow{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.5px;margin:21px 2px 10px;display:flex;align-items:center;justify-content:space-between}.live-heading{display:flex;align-items:center;gap:8px}.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 12px #26d99a;animation:pulse 1.4s infinite}@keyframes pulse{50%{opacity:.35;box-shadow:0 0 2px #26d99a}}
+.live-strip{display:flex;gap:10px;overflow:auto;padding:2px 1px 8px;scrollbar-width:none}.live-strip::-webkit-scrollbar{display:none}.match-card{min-width:248px;max-width:300px;flex:1;background:linear-gradient(140deg,#102b45,#0a1d30);border:1px solid #1b405f;border-radius:17px;padding:14px;box-shadow:0 8px 22px #0002}.match-top{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);margin-bottom:14px}.live-badge{background:#ff405b;color:white;padding:4px 7px;border-radius:6px;font-size:9px;font-weight:900;letter-spacing:.4px}.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.team{display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;font-size:11px;font-weight:700}.team img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 3px 6px #0005)}.score{font-size:21px;font-weight:900;letter-spacing:1px;white-space:nowrap}.score small{display:block;font-size:9px;color:var(--muted);text-align:center;font-weight:500;letter-spacing:0;margin-top:5px}
+.notice{border:1px dashed #294965;background:#0a1b2b;border-radius:12px;padding:12px;color:#a9bfd2;font-size:11px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.menu-card{border:1px solid var(--line);border-radius:17px;padding:16px 14px;background:linear-gradient(145deg,#102a43,#0a1c2d);text-align:start;min-height:112px;transition:.18s;position:relative;overflow:hidden}.menu-card:active{transform:scale(.98);border-color:var(--cyan)}.menu-card.gold{background:linear-gradient(145deg,#302716,#111c2b);border-color:#826b36}.menu-icon{width:39px;height:39px;display:grid;place-items:center;background:#168cff19;border:1px solid #168cff2b;border-radius:12px;font-size:20px;margin-bottom:11px}.gold .menu-icon{background:#f5c45d16;border-color:#a9863b55}.menu-card h3{font-size:13px;font-weight:800;margin-bottom:5px}.menu-card p{font-size:10px;color:var(--muted);line-height:1.6}.arrow{position:absolute;top:15px;right:13px;color:#5c8bab;font-size:17px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:6px 0 15px;gap:10px}.back-btn{border:1px solid var(--line);background:var(--card);border-radius:11px;padding:9px 12px;font-size:12px}.section-head h2{font-size:19px}.section-head p{font-size:11px;color:var(--muted);margin-top:4px}.page{display:none;animation:fade .2s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.filters{display:flex;gap:7px;overflow:auto;margin-bottom:13px;padding-bottom:3px}.filter{white-space:nowrap;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:9px 12px;font-size:11px;color:#a7bfd3}.filter.active{background:#0872c9;border-color:#168cff;color:white}.list{display:flex;flex-direction:column;gap:9px}.row-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px;border-radius:15px;background:var(--card);border:1px solid var(--line)}.row-card h3{font-size:12px}.row-card p{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.6}.row-card .row-icon{font-size:23px}.pill{font-size:9px;color:var(--cyan);background:#26d9f415;border:1px solid #26d9f42b;padding:5px 8px;border-radius:20px;white-space:nowrap}
+.team-search{display:flex;gap:8px;margin-bottom:12px}.team-search input,.chat-input input,.code-input{width:100%;min-width:0;border:1px solid var(--line);background:#061523;color:var(--text);border-radius:12px;padding:13px;font-size:12px;outline:none}.primary{border:0;background:linear-gradient(135deg,#168cff,#1263c9);padding:12px 15px;border-radius:12px;font-size:12px;font-weight:800;white-space:nowrap}.gold-btn{background:linear-gradient(135deg,#ffdf83,#d9a638);color:#241800}.panel{background:linear-gradient(145deg,#0e2439,#091a2b);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}.panel h3{font-size:14px;margin-bottom:9px}.panel p{font-size:12px;color:#adc1d3;line-height:1.85}.chat-box{display:flex;flex-direction:column;min-height:400px;height:min(62vh,600px);border:1px solid var(--line);border-radius:18px;background:#081827;overflow:hidden}.chat-top{padding:14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}.ai-orb{height:35px;width:35px;border-radius:12px;display:grid;place-items:center;background:#6536b822;border:1px solid #a66bff55}.chat-top strong{font-size:13px}.chat-top p{font-size:10px;color:var(--muted);margin-top:3px}.chat-messages{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:13px}.bubble{max-width:88%;padding:11px 13px;border-radius:13px;font-size:12px;line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.ai{align-self:flex-start;background:#102b43;border:1px solid #20435e}.bubble.user{align-self:flex-end;background:#075da5;border:1px solid #168cff}.chat-input{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line)}.chat-input button{width:47px;flex-shrink:0}.small{font-size:10px;color:var(--muted);line-height:1.7}.bottom-nav{position:fixed;z-index:25;bottom:0;left:0;right:0;height:70px;padding-bottom:env(safe-area-inset-bottom);display:flex;justify-content:space-around;align-items:center;background:#071727ed;backdrop-filter:blur(18px);border-top:1px solid #19334b}.nav-btn{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;color:#7892aa;font-size:10px;min-width:65px}.nav-btn span:first-child{font-size:20px}.nav-btn.active{color:var(--cyan)}.modal-backdrop{position:fixed;inset:0;z-index:100;background:#020812cc;backdrop-filter:blur(7px);display:none;align-items:flex-end;justify-content:center;padding:14px}.modal-backdrop.open{display:flex}.modal{width:min(100%,500px);max-height:82vh;overflow:auto;background:#0b1e30;border:1px solid #28506c;border-radius:22px;padding:18px;box-shadow:var(--shadow)}.modal-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.modal-title h2{font-size:17px}.close-btn{border:1px solid var(--line);background:var(--card);border-radius:10px;width:34px;height:34px}.language-search{margin-bottom:12px}.language-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.lang-option{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px;text-align:start;font-size:12px}.lang-option.active{border-color:var(--cyan);background:#0b3449}.lang-option small{display:block;color:var(--muted);margin-top:4px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:85px;z-index:150;background:#102a40;border:1px solid #28506c;padding:11px 15px;border-radius:12px;font-size:12px;display:none;max-width:90%;text-align:center}.skeleton{height:110px;background:linear-gradient(90deg,#0d243b,#18344b,#0d243b);background-size:200% 100%;animation:shine 1.2s infinite;border-radius:15px}@keyframes shine{to{background-position:-200% 0}}.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}
+@media(min-width:680px){.shell{padding:24px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:28px}.live-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.match-card{max-width:none}.bottom-nav{left:calc(50% - 300px);right:calc(50% - 300px);border-left:1px solid var(--line);border-right:1px solid var(--line);border-radius:17px 17px 0 0}}
+</style>
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div>
-      <div class="brand-title" id="txt-title">AI BET ELITE</div>
-      <div class="brand-subtitle" id="txt-subtitle">ذكاء اصطناعي فائق الدقة لتحليل المباريات</div>
+<header class="topbar">
+  <div class="brand"><div class="logo">⚽</div><div><h1>AI BET ELITE</h1><p data-i18n="tagline">FOOTBALL INTELLIGENCE</p></div></div>
+  <div class="top-actions"><button class="icon-btn" onclick="openLanguages()" aria-label="Choose language">🌐</button><button class="icon-btn" onclick="goHome()" aria-label="Home">⌂</button></div>
+</header>
+<main class="shell">
+  <section id="page-home" class="page active">
+    <div class="hero"><div class="hero-row"><div><div class="hero-kicker">NEXT-GEN FOOTBALL PLATFORM</div><h2 data-i18n="heroTitle">Real Football. Deeper Intelligence.</h2><p data-i18n="heroDesc">Live scores from football data, match insights, team form and AI analysis — all in one place.</p></div><div class="hero-ball">⚽</div></div></div>
+    <div class="eyebrow"><span class="live-heading"><i class="live-dot"></i><span data-i18n="liveNow">LIVE MATCHES</span></span><button class="back-btn" onclick="openPage('live')" data-i18n="viewAll">View all</button></div>
+    <div id="home-live" class="live-strip"><div class="skeleton"></div><div class="skeleton"></div></div>
+    <div id="live-status" class="small" style="margin:2px 3px 14px"></div>
+    <div class="eyebrow"><span data-i18n="explore">EXPLORE THE PLATFORM</span></div>
+    <div class="grid">
+      <button class="menu-card" onclick="openPage('live')"><span class="arrow">›</span><div class="menu-icon">🔴</div><h3 data-i18n="liveMatches">Live Matches</h3><p data-i18n="liveDesc">Real scores and match clock</p></button>
+      <button class="menu-card" onclick="openPage('upcoming')"><span class="arrow">›</span><div class="menu-icon">📅</div><h3 data-i18n="upcoming">Upcoming Matches</h3><p data-i18n="upcomingDesc">Fixtures by date and league</p></button>
+      <button class="menu-card" onclick="openPage('leagues')"><span class="arrow">›</span><div class="menu-icon">🏆</div><h3 data-i18n="leagues">Leagues & Tournaments</h3><p data-i18n="leaguesDesc">Browse football competitions</p></button>
+      <button class="menu-card" onclick="openPage('teams')"><span class="arrow">›</span><div class="menu-icon">🔎</div><h3 data-i18n="teams">Team Search</h3><p data-i18n="teamsDesc">Find a club and inspect its matches</p></button>
+      <button class="menu-card" onclick="openPage('analysis')"><span class="arrow">›</span><div class="menu-icon">📊</div><h3 data-i18n="matchAnalysis">Match Analysis</h3><p data-i18n="analysisDesc">Stats, form and match context</p></button>
+      <button class="menu-card gold" onclick="openPage('vip')"><span class="arrow">›</span><div class="menu-icon">👑</div><h3 data-i18n="vip">VIP Elite</h3><p data-i18n="vipDesc">Advanced insight tools</p></button>
+      <button class="menu-card" onclick="openPage('ai')"><span class="arrow">›</span><div class="menu-icon">🤖</div><h3 data-i18n="aiAnalyst">AI Analyst</h3><p data-i18n="aiDesc">Ask the football AI assistant</p></button>
+      <button class="menu-card" onclick="openPage('settings')"><span class="arrow">›</span><div class="menu-icon">⚙️</div><h3 data-i18n="settings">Settings</h3><p data-i18n="settingsDesc">Language and display preferences</p></button>
     </div>
-    <button class="lang-btn" onclick="openLangModal()">🌐 <span id="current-lang-name">العربية</span></button>
-  </header>
+    <div class="eyebrow"><span data-i18n="dataNoteTitle">DATA STATUS</span></div><div class="notice" id="data-note" data-i18n="dataNote">Live fixtures are loaded from your server API. If the API plan has no live fixtures at the moment, this area will say so rather than inventing matches.</div>
+  </section>
 
-  <!-- Container -->
-  <div class="container">
-    
-    <!-- Cards Grid -->
-    <div class="grid-cards">
-      <div class="card" onclick="quickPrompt('المباريات الحية والنتائج المباشرة')">
-        <div class="card-icon">⚽</div>
-        <div class="card-title" id="btn-live">المباريات الحية</div>
-        <div class="card-desc">تحديثات وتحليلات مباشرة</div>
-      </div>
+  <section id="page-live" class="page">
+    <div class="section-head"><div><h2 data-i18n="liveMatches">Live Matches</h2><p data-i18n="liveDesc">Real scores and match clock</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="filters" id="live-filters"><button class="filter active" onclick="loadLiveMatches(true)" data-i18n="refresh">Refresh</button><button class="filter" onclick="openPage('upcoming')" data-i18n="upcoming">Upcoming</button></div>
+    <div id="live-list" class="list"><div class="skeleton"></div></div>
+  </section>
 
-      <div class="card" onclick="quickPrompt('مباريات اليوم والغد والقنوات الناقلة')">
-        <div class="card-icon">📅</div>
-        <div class="card-title" id="btn-upcoming">مباريات قادمة</div>
-        <div class="card-desc">توقعات اليوم والغد</div>
-      </div>
+  <section id="page-upcoming" class="page">
+    <div class="section-head"><div><h2 data-i18n="upcoming">Upcoming Matches</h2><p data-i18n="fixturesDesc">Scheduled real fixtures</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="filters"><button class="filter active" onclick="loadUpcoming(0)" data-i18n="today">Today</button><button class="filter" onclick="loadUpcoming(1)" data-i18n="tomorrow">Tomorrow</button><button class="filter" onclick="loadUpcoming(2)" data-i18n="inTwoDays">+2 days</button></div>
+    <div id="upcoming-list" class="list"><div class="skeleton"></div></div>
+  </section>
 
-      <div class="card card-gold" onclick="quickPrompt('تحليل التوقعات عالية الأرباح VIP')">
-        <div class="card-icon">👑</div>
-        <div class="card-title" style="color: var(--accent-gold);" id="btn-vip">VIP النخبة</div>
-        <div class="card-desc">توقعات الأرباح الحصرية</div>
-      </div>
+  <section id="page-leagues" class="page">
+    <div class="section-head"><div><h2 data-i18n="leagues">Leagues & Tournaments</h2><p data-i18n="leaguesDesc">Browse football competitions</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="panel"><h3 data-i18n="leagueBrowse">Browse competitions</h3><p data-i18n="leagueBrowseDesc">League lists depend on the competitions and seasons available to your football API plan.</p></div>
+    <div id="leagues-list" class="list"><button class="row-card" onclick="loadUpcoming(0)"><span class="row-icon">⚽</span><span style="flex:1"><h3 data-i18n="viewFixtures">View available fixtures</h3><p data-i18n="viewFixturesDesc">See real scheduled games returned by the API</p></span><span>›</span></button></div>
+  </section>
 
-      <div class="card" onclick="quickPrompt('تحليل حالة الفرق الحالية والغيابات')">
-        <div class="card-icon">🔍</div>
-        <div class="card-title" id="btn-search">البحث عن فريق</div>
-        <div class="card-desc">قراءة شاملة لحالة الفرق</div>
-      </div>
+  <section id="page-teams" class="page">
+    <div class="section-head"><div><h2 data-i18n="teams">Team Search</h2><p data-i18n="teamsDesc">Find a club and inspect its matches</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="team-search"><input id="team-query" placeholder="Team name, e.g. Arsenal" autocomplete="off"><button class="primary" onclick="searchTeam()" data-i18n="search">Search</button></div>
+    <div id="team-results" class="list"><div class="empty" data-i18n="teamHint">Enter a team name to ask the AI analyst or inspect API results.</div></div>
+    <div class="panel" style="margin-top:12px"><h3 data-i18n="teamAiTitle">Need deeper team context?</h3><p data-i18n="teamAiDesc">Open AI Analyst and ask about recent form, injuries or head-to-head records. The AI should distinguish verified data from unavailable information.</p><button class="primary" style="margin-top:12px" onclick="openPage('ai')" data-i18n="openAi">Open AI Analyst</button></div>
+  </section>
+
+  <section id="page-analysis" class="page">
+    <div class="section-head"><div><h2 data-i18n="matchAnalysis">Match Analysis</h2><p data-i18n="analysisDesc">Stats, form and match context</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="panel"><h3 data-i18n="analysisStartTitle">Start with a real fixture</h3><p data-i18n="analysisStartDesc">Choose a live or upcoming match, then ask the AI Analyst to discuss it. Live statistics are shown only when the football API supplies them.</p><div style="display:flex;gap:8px;margin-top:13px"><button class="primary" onclick="openPage('live')" data-i18n="liveMatches">Live Matches</button><button class="primary" onclick="openPage('upcoming')" data-i18n="upcoming">Upcoming</button></div></div>
+    <div class="panel"><h3 data-i18n="analysisPromptTitle">Analysis prompt</h3><p data-i18n="analysisPromptDesc">Ask about team form, scoring trends, tactical matchups or uncertainty. AI analysis is probabilistic, not a guaranteed result.</p><button class="primary" style="margin-top:12px" onclick="askAIWith('Analyze the latest verified data for the next major football fixture. Clearly state which facts are verified and which are uncertain.')" data-i18n="askAi">Ask AI Analyst</button></div>
+  </section>
+
+  <section id="page-vip" class="page">
+    <div class="section-head"><div><h2 data-i18n="vip">VIP Elite</h2><p data-i18n="vipDesc">Advanced insight tools</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="hero" style="border-color:#8b7136;background:linear-gradient(135deg,#352817,#111c2a 72%)"><div class="hero-kicker" style="color:var(--gold)">✦ PREMIUM FOOTBALL INSIGHTS</div><h2 style="color:var(--gold)">VIP ELITE</h2><p data-i18n="vipIntro">Advanced match comparison, probability explanations and form summaries. No prediction is guaranteed.</p></div>
+    <div class="list">
+      <button class="row-card" onclick="askAIWith('Compare the latest verified form and statistics for two football teams. Ask me which teams if they are not specified.')"><span class="row-icon">⚖️</span><span style="flex:1"><h3 data-i18n="compareTeams">Team comparison</h3><p data-i18n="compareTeamsDesc">Compare form, strengths and weaknesses</p></span><span>›</span></button>
+      <button class="row-card" onclick="askAIWith('Explain the main factors that influence the outcome of a football match, separating verified stats from assumptions.')"><span class="row-icon">📈</span><span style="flex:1"><h3 data-i18n="probability">Probability insights</h3><p data-i18n="probabilityDesc">Understand likely scenarios and uncertainty</p></span><span>›</span></button>
+      <button class="row-card" onclick="askAIWith('Give a tactical matchup analysis for the teams I specify. Do not invent injuries or statistics.')"><span class="row-icon">🧠</span><span style="flex:1"><h3 data-i18n="tactics">Tactical matchup</h3><p data-i18n="tacticsDesc">Style, shape and key battles</p></span><span>›</span></button>
+      <button class="row-card" onclick="openPage('ai')"><span class="row-icon">🤖</span><span style="flex:1"><h3 data-i18n="askAnalyst">Ask AI Analyst</h3><p data-i18n="askAnalystDesc">Open the assistant in its own menu</p></span><span>›</span></button>
     </div>
+  </section>
 
-    <!-- AI Chat Box -->
-    <div class="chat-box">
-      <div class="chat-header">
-        🤖 <span id="txt-ai-title">محلل الـ AI الرياضي</span>
-      </div>
-      
-      <div class="messages-container" id="messages">
-        <div class="message ai" id="msg-welcome">
-          أهلاً بك في منصة AI BET ELITE. اكتب اسم أي مباراة أو فريق للحصول على تحليل فوري ومباشر!
-        </div>
-      </div>
+  <section id="page-ai" class="page">
+    <div class="section-head"><div><h2 data-i18n="aiAnalyst">AI Analyst</h2><p data-i18n="aiPageDesc">A dedicated space for football questions</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <div class="chat-box"><div class="chat-top"><div class="ai-orb">🤖</div><div><strong data-i18n="aiAnalyst">AI Analyst</strong><p data-i18n="aiOnline">Football analysis assistant · responses may be uncertain</p></div></div><div class="chat-messages" id="ai-messages"><div class="bubble ai" id="ai-welcome" data-i18n="aiWelcome">Welcome. Ask about a match or team. I will avoid presenting unverified information as live data.</div></div><div class="chat-input"><input id="ai-input" data-i18n-placeholder="aiPlaceholder" placeholder="Ask about a match or team..." onkeydown="if(event.key==='Enter')sendAI()"><button class="primary" onclick="sendAI()" aria-label="Send">➤</button></div></div>
+    <p class="small" style="margin:9px 4px" data-i18n="aiDisclaimer">AI analysis is informational and can be wrong. It is not a guarantee of match outcomes.</p>
+  </section>
 
-      <div class="input-group">
-        <input type="text" id="user-input" placeholder="اسأل محلل الـ AI عن أي مباراة..." onkeypress="handleKey(event)">
-        <button onclick="sendMessage()" id="btn-send">إرسال</button>
-      </div>
-    </div>
+  <section id="page-settings" class="page">
+    <div class="section-head"><div><h2 data-i18n="settings">Settings</h2><p data-i18n="settingsDesc">Language and display preferences</p></div><button class="back-btn" onclick="goHome()" data-i18n="home">Home</button></div>
+    <button class="row-card" style="width:100%;text-align:start" onclick="openLanguages()"><span class="row-icon">🌐</span><span style="flex:1"><h3 data-i18n="language">Language</h3><p id="settings-lang">English</p></span><span>›</span></button>
+    <div class="panel" style="margin-top:12px"><h3 data-i18n="connectionTitle">Data connection</h3><p data-i18n="connectionDesc">Football fixtures load from /api/fixtures if you create that server endpoint. The AI chat uses your existing /api/chat endpoint. Never put API keys in this HTML file.</p><div id="settings-api-status" class="small" style="margin-top:10px">Checking connection…</div></div>
+  </section>
+</main>
 
-  </div>
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-page="home" onclick="openPage('home')"><span>⌂</span><span data-i18n="home">Home</span></button>
+  <button class="nav-btn" data-page="live" onclick="openPage('live')"><span>⚽</span><span data-i18n="matches">Matches</span></button>
+  <button class="nav-btn" data-page="analysis" onclick="openPage('analysis')"><span>▤</span><span data-i18n="analysisNav">Analysis</span></button>
+  <button class="nav-btn" data-page="vip" onclick="openPage('vip')"><span>♛</span><span data-i18n="vip">VIP</span></button>
+</nav>
 
-  <!-- Language Modal -->
-  <div class="modal" id="langModal">
-    <div class="modal-content">
-      <h3 style="margin-bottom: 15px; color: var(--accent-blue); text-align: center;">اختر اللغة / Select Language</h3>
-      
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <button class="card" style="text-align: right;" onclick="setLanguage('ar')">🇪🇬 العربية</button>
-        <button class="card" style="text-align: left;" onclick="setLanguage('en')">🇬🇧 English</button>
-        <button class="card" style="text-align: left;" onclick="setLanguage('fr')">🇫🇷 Français</button>
-        <button class="card" style="text-align: left;" onclick="setLanguage('es')">🇪🇸 Español</button>
-      </div>
-      
-      <button onclick="closeLangModal()" style="margin-top: 15px; width: 100%; padding: 10px; border-radius: 10px; background: transparent; border: 1px solid var(--border-color); color: #fff; cursor: pointer;">إلغاء / Cancel</button>
-    </div>
-  </div>
-
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
-    <div class="nav-item active">
-      <span>🏠</span>
-      <span id="nav-home">الرئيسية</span>
-    </div>
-    <div class="nav-item" onclick="quickPrompt('جدول المباريات الحية')">
-      <span>⚽</span>
-      <span id="nav-matches">المباريات</span>
-    </div>
-    <div class="nav-item" onclick="quickPrompt('تحليل التوقعات الشاملة')">
-      <span>📊</span>
-      <span id="nav-analysis">التحليل</span>
-    </div>
-  </div>
-
-  <script>
-    const translations = {
-      ar: {
-        title: "AI BET ELITE", subtitle: "ذكاء اصطناعي فائق الدقة لتحليل المباريات",
-        live: "المباريات الحية", upcoming: "مباريات قادمة", vip: "VIP النخبة", search: "البحث عن فريق",
-        aiTitle: "محلل الـ AI الرياضي", welcome: "أهلاً بك في منصة AI BET ELITE. اكتب اسم أي مباراة أو فريق للحصول على تحليل فوري ومباشر!",
-        placeholder: "اسأل محلل الـ AI عن أي مباراة...", send: "إرسال", home: "الرئيسية", matches: "المباريات", analysis: "التحليل", langName: "العربية"
-      },
-      en: {
-        title: "AI BET ELITE", subtitle: "High-Precision Football AI Analytics",
-        live: "Live Matches", upcoming: "Upcoming Matches", vip: "VIP Elite", search: "Team Search",
-        aiTitle: "AI Sports Analyst", welcome: "Welcome to AI BET ELITE. Type any match or team name to get real-time analysis!",
-        placeholder: "Ask AI Analyst about any match...", send: "Send", home: "Home", matches: "Matches", analysis: "Analysis", langName: "English"
-      },
-      fr: {
-        title: "AI BET ELITE", subtitle: "Analyse Football IA Haute Précision",
-        live: "Matchs En Direct", upcoming: "Matchs À Venir", vip: "VIP Élite", search: "Rechercher Équipe",
-        aiTitle: "Analyste IA Sport", welcome: "Bienvenue sur AI BET ELITE. Tapez un match ou une équipe pour une analyse en direct!",
-        placeholder: "Posez une question sur un match...", send: "Envoyer", home: "Accueil", matches: "Matchs", analysis: "Analyse", langName: "Français"
-      },
-      es: {
-        title: "AI BET ELITE", subtitle: "Análisis de Fútbol de Alta Precisión con IA",
-        live: "Partidos en Vivo", upcoming: "Próximos Partidos", vip: "VIP Élite", search: "Buscar Equipo",
-        aiTitle: "Analista IA Deportivo", welcome: "¡Bienvenido a AI BET ELITE. Escribe un partido o equipo para obtener análisis en tiempo real!",
-        placeholder: "Pregunta sobre cualquier partido...", send: "Enviar", home: "Inicio", matches: "Partidos", analysis: "Análisis", langName: "Español"
-      }
-    };
-
-    let currentLang = 'ar';
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      const t = translations[lang];
-      
-      document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-      document.getElementById('txt-title').innerText = t.title;
-      document.getElementById('txt-subtitle').innerText = t.subtitle;
-      document.getElementById('btn-live').innerText = t.live;
-      document.getElementById('btn-upcoming').innerText = t.upcoming;
-      document.getElementById('btn-vip').innerText = t.vip;
-      document.getElementById('btn-search').innerText = t.search;
-      document.getElementById('txt-ai-title').innerText = t.aiTitle;
-      document.getElementById('msg-welcome').innerText = t.welcome;
-      document.getElementById('user-input').placeholder = t.placeholder;
-      document.getElementById('btn-send').innerText = t.send;
-      document.getElementById('nav-home').innerText = t.home;
-      document.getElementById('nav-matches').innerText = t.matches;
-      document.getElementById('nav-analysis').innerText = t.analysis;
-      document.getElementById('current-lang-name').innerText = t.langName;
-
-      closeLangModal();
-    }
-
-    function openLangModal() { document.getElementById('langModal').style.display = 'flex'; }
-    function closeLangModal() { document.getElementById('langModal').style.display = 'none'; }
-
-    function handleKey(e) { if (e.key === 'Enter') sendMessage(); }
-
-    function quickPrompt(text) {
-      document.getElementById('user-input').value = text;
-      sendMessage();
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('user-input');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const container = document.getElementById('messages');
-
-      // Add User Message
-      const userMsg = document.createElement('div');
-      userMsg.className = 'message user';
-      userMsg.innerText = text;
-      container.appendChild(userMsg);
-
-      input.value = '';
-      container.scrollTop = container.scrollHeight;
-
-      // Add Loading Indicator
-      const loadingMsg = document.createElement('div');
-      loadingMsg.className = 'message ai';
-      loadingMsg.innerText = 'جاري التحليل... ⏳';
-      container.appendChild(loadingMsg);
-      container.scrollTop = container.scrollHeight;
-
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: text })
-        });
-
-        const data = await response.json();
-        loadingMsg.innerText = data.reply || "تم الاستلام ولكن لم يتم توليد رد.";
-      } catch (error) {
-        loadingMsg.innerText = "حدث خطأ أثناء الاتصال بالسيرفر.";
-      }
-      container.scrollTop = container.scrollHeight;
-    }
-  </script>
+<div class="modal-backdrop" id="lang-modal" onclick="if(event.target===this)closeLanguages()"><div class="modal"><div class="modal-title"><h2 data-i18n="chooseLanguage">Choose your language</h2><button class="close-btn" onclick="closeLanguages()">✕</button></div><input class="code-input language-search" id="language-search" data-i18n-placeholder="searchLanguage" placeholder="Search languages..." oninput="renderLanguageList(this.value)"><div id="language-list" class="language-list"></div></div></div>
+<div id="toast" class="toast"></div>
+<script>
+const I18N={
+en:{tagline:"FOOTBALL INTELLIGENCE",heroTitle:"Real Football. Deeper Intelligence.",heroDesc:"Live scores from football data, match insights, team form and AI analysis — all in one place.",liveNow:"LIVE MATCHES",viewAll:"View all",explore:"EXPLORE THE PLATFORM",liveMatches:"Live Matches",liveDesc:"Real scores and match clock",upcoming:"Upcoming Matches",upcomingDesc:"Fixtures by date and league",leagues:"Leagues & Tournaments",leaguesDesc:"Browse football competitions",teams:"Team Search",teamsDesc:"Find a club and inspect its matches",matchAnalysis:"Match Analysis",analysisDesc:"Stats, form and match context",vip:"VIP Elite",vipDesc:"Advanced insight tools",aiAnalyst:"AI Analyst",aiDesc:"Ask the football AI assistant",settings:"Settings",settingsDesc:"Language and display preferences",dataNoteTitle:"DATA STATUS",dataNote:"Live fixtures are loaded from your server API. If no live fixtures are returned, the app will say so instead of inventing matches.",home:"Home",matches:"Matches",analysisNav:"Analysis",refresh:"Refresh",fixturesDesc:"Scheduled real fixtures",today:"Today",tomorrow:"Tomorrow",inTwoDays:"+2 days",leagueBrowse:"Browse competitions",leagueBrowseDesc:"League lists depend on the competitions and seasons available to your football API plan.",viewFixtures:"View available fixtures",viewFixturesDesc:"See real scheduled games returned by the API",search:"Search",teamHint:"Enter a team name to begin.",teamAiTitle:"Need deeper team context?",teamAiDesc:"Ask about recent form, injuries or head-to-head records. Unavailable information should be identified clearly.",openAi:"Open AI Analyst",analysisStartTitle:"Start with a real fixture",analysisStartDesc:"Choose a live or upcoming match, then ask the AI Analyst to discuss it. Live statistics are shown only when the football API supplies them.",analysisPromptTitle:"Analysis prompt",analysisPromptDesc:"Ask about team form, scoring trends, tactical matchups or uncertainty. AI analysis is probabilistic, not guaranteed.",askAi:"Ask AI Analyst",vipIntro:"Advanced match comparison, probability explanations and form summaries. No prediction is guaranteed.",compareTeams:"Team comparison",compareTeamsDesc:"Compare form, strengths and weaknesses",probability:"Probability insights",probabilityDesc:"Understand likely scenarios and uncertainty",tactics:"Tactical matchup",tacticsDesc:"Style, shape and key battles",askAnalyst:"Ask AI Analyst",askAnalystDesc:"Open the assistant in its own menu",aiPageDesc:"A dedicated space for football questions",aiOnline:"Football analysis assistant · responses may be uncertain",aiWelcome:"Welcome. Ask about a match or team. I will avoid presenting unverified information as live data.",aiPlaceholder:"Ask about a match or team...",aiDisclaimer:"AI analysis is informational and can be wrong. It is not a guarantee of match outcomes.",language:"Language",connectionTitle:"Data connection",connectionDesc:"Fixtures load from /api/fixtures if that endpoint is configured. AI chat uses your existing /api/chat endpoint. Never put API keys in this HTML file.",checking:"Checking connection…",chooseLanguage:"Choose your language",searchLanguage:"Search languages...",loading:"Loading real fixtures…",noLive:"No live matches were returned by the football API right now. This is normal when no covered games are in progress.",apiUnavailable:"Could not load live matches. Check that /api/fixtures exists and returns API-Football data.",noFixtures:"No fixtures were returned for this date.",error:"Something went wrong. Please try again.",sent:"Analyzing…",homeMatches:"Home",statusLive:"Live data from football API",teamSearchTitle:"Team search",teamNoApi:"Team search endpoint is not configured yet. You can still ask AI Analyst about a team.",noResults:"No matching results.",languageSaved:"Language updated",league:"League",kickoff:"Kickoff",status:"Status",openMatch:"Ask AI about this match",promptMatch:"Analyze this fixture using verified current data only",liveLabel:"LIVE",aiFail:"The AI endpoint did not return a response. Check /api/chat.",fixturesNeedApi:"Connect /api/fixtures to your API-Football key to display verified live fixtures.",vipDisclaimer:"For analysis and entertainment only. No guaranteed outcomes."},
+ar:{tagline:"ذكاء كرة القدم",heroTitle:"كرة حقيقية. تحليل أعمق.",heroDesc:"نتائج مباشرة من بيانات كرة القدم، وتحليلات للمباريات وأداء الفرق والذكاء الاصطناعي في مكان واحد.",liveNow:"المباريات المباشرة",viewAll:"عرض الكل",explore:"اكتشف المنصة",liveMatches:"المباريات المباشرة",liveDesc:"نتائج حقيقية ووقت المباراة",upcoming:"المباريات القادمة",upcomingDesc:"جدول المباريات حسب التاريخ والبطولة",leagues:"الدوريات والبطولات",leaguesDesc:"تصفح مسابقات كرة القدم",teams:"البحث عن فريق",teamsDesc:"ابحث عن فريق وراجع مبارياته",matchAnalysis:"تحليل المباريات",analysisDesc:"الإحصائيات ومستوى الفرق وسياق المباراة",vip:"VIP النخبة",vipDesc:"أدوات تحليل متقدمة",aiAnalyst:"محلل الذكاء الاصطناعي",aiDesc:"اسأل مساعد كرة القدم الذكي",settings:"الإعدادات",settingsDesc:"اللغة وتفضيلات العرض",dataNoteTitle:"حالة البيانات",dataNote:"يتم تحميل المباريات من واجهة بيانات الكرة. إذا لم توجد مباريات مباشرة، ستظهر رسالة واضحة بدل اختلاق مباريات.",home:"الرئيسية",matches:"المباريات",analysisNav:"التحليل",refresh:"تحديث",fixturesDesc:"مباريات حقيقية مجدولة",today:"اليوم",tomorrow:"غدًا",inTwoDays:"بعد يومين",leagueBrowse:"تصفح البطولات",leagueBrowseDesc:"تعتمد البطولات المتاحة على المسابقات والمواسم التي تدعمها خطتك.",viewFixtures:"عرض المباريات المتاحة",viewFixturesDesc:"عرض المباريات الحقيقية التي تعيدها الواجهة البرمجية",search:"بحث",teamHint:"اكتب اسم فريق للبدء.",teamAiTitle:"تحتاج تحليلًا أعمق للفريق؟",teamAiDesc:"اسأل عن الأداء الأخير أو الغيابات أو المواجهات السابقة. يجب توضيح أي معلومات غير متاحة.",openAi:"افتح محلل الذكاء الاصطناعي",analysisStartTitle:"ابدأ بمباراة حقيقية",analysisStartDesc:"اختر مباراة مباشرة أو قادمة، ثم اطلب من المحلل مناقشتها. ستظهر الإحصائيات المباشرة فقط إذا وفرتها واجهة بيانات الكرة.",analysisPromptTitle:"طلب التحليل",analysisPromptDesc:"اسأل عن مستوى الفرق أو اتجاهات التسجيل أو المواجهة التكتيكية. التحليل احتمالي وليس نتيجة مضمونة.",askAi:"اسأل المحلل الذكي",vipIntro:"مقارنة متقدمة للمباريات وشرح الاحتمالات وملخصات الأداء. لا توجد توقعات مضمونة.",compareTeams:"مقارنة الفرق",compareTeamsDesc:"قارن المستوى ونقاط القوة والضعف",probability:"تحليل الاحتمالات",probabilityDesc:"افهم السيناريوهات المحتملة ومدى عدم اليقين",tactics:"المواجهة التكتيكية",tacticsDesc:"أسلوب اللعب والخطط والمواجهات المهمة",askAnalyst:"اسأل محلل الذكاء الاصطناعي",askAnalystDesc:"افتح المساعد داخل قائمة مستقلة",aiPageDesc:"مساحة مخصصة لأسئلة كرة القدم",aiOnline:"مساعد تحليل كرة القدم · النتائج قد تحتمل الخطأ",aiWelcome:"أهلًا بك. اسأل عن مباراة أو فريق. لن أعرض معلومة غير مؤكدة على أنها بيانات مباشرة.",aiPlaceholder:"اسأل عن مباراة أو فريق...",aiDisclaimer:"التحليل للمعلومات وقد يخطئ، ولا يضمن نتيجة المباراة.",language:"اللغة",connectionTitle:"اتصال البيانات",connectionDesc:"تُحمّل المباريات من /api/fixtures عند إعداد هذا المسار. ويستخدم المحلل مسارك الحالي /api/chat. لا تضع مفاتيح API داخل هذا الملف.",checking:"جارٍ فحص الاتصال…",chooseLanguage:"اختر لغتك",searchLanguage:"ابحث عن لغة...",loading:"جارٍ تحميل المباريات الحقيقية…",noLive:"لا توجد مباريات مباشرة أعادتها واجهة الكرة الآن. هذا طبيعي إذا لم تكن هناك مباريات ضمن التغطية جارية حاليًا.",apiUnavailable:"تعذر تحميل المباريات. تأكد من وجود /api/fixtures وإرجاعه بيانات API-Football.",noFixtures:"لم تُرجع الواجهة مباريات لهذا التاريخ.",error:"حدث خطأ. حاول مرة أخرى.",sent:"جارٍ التحليل…",homeMatches:"الرئيسية",statusLive:"بيانات مباشرة من واجهة كرة القدم",teamSearchTitle:"البحث عن فريق",teamNoApi:"مسار البحث عن الفرق غير مجهز بعد. يمكنك سؤال المحلل الذكي عن الفريق.",noResults:"لا توجد نتائج مطابقة.",languageSaved:"تم تحديث اللغة",league:"البطولة",kickoff:"موعد البداية",status:"الحالة",openMatch:"اسأل الذكاء الاصطناعي عن المباراة",promptMatch:"حلل هذه المباراة باستخدام بيانات حالية مؤكدة فقط",liveLabel:"مباشر",aiFail:"لم يُرجع المحلل ردًا. تحقق من /api/chat.",fixturesNeedApi:"اربط /api/fixtures بمفتاح API-Football لعرض مباريات مباشرة مؤكدة.",vipDisclaimer:"للتحليل والمعلومات فقط. لا توجد نتائج مضمونة."},
+fr:{tagline:"INTELLIGENCE FOOTBALL",heroTitle:"Le vrai football. Une analyse plus profonde.",heroDesc:"Scores en direct, statistiques, forme des équipes et analyse IA au même endroit.",liveNow:"MATCHS EN DIRECT",viewAll:"Tout voir",explore:"EXPLORER LA PLATEFORME",liveMatches:"Matchs en direct",liveDesc:"Scores réels et minute du match",upcoming:"Matchs à venir",upcomingDesc:"Calendrier par date et compétition",leagues:"Ligues et compétitions",leaguesDesc:"Parcourir les compétitions",teams:"Recherche d'équipe",teamsDesc:"Trouver un club et ses matchs",matchAnalysis:"Analyse du match",analysisDesc:"Statistiques, forme et contexte",vip:"VIP Élite",vipDesc:"Outils d'analyse avancés",aiAnalyst:"Analyste IA",aiDesc:"Posez vos questions à l'assistant football",settings:"Paramètres",settingsDesc:"Langue et affichage",dataNoteTitle:"ÉTAT DES DONNÉES",dataNote:"Les matchs proviennent de l'API. Aucun match ne sera inventé.",home:"Accueil",matches:"Matchs",analysisNav:"Analyse",refresh:"Actualiser",fixturesDesc:"Matchs réels programmés",today:"Aujourd'hui",tomorrow:"Demain",inTwoDays:"Dans 2 jours",leagueBrowse:"Compétitions",leagueBrowseDesc:"Les compétitions dépendent de votre forfait API.",viewFixtures:"Voir les matchs",viewFixturesDesc:"Matchs réels fournis par l'API",search:"Rechercher",teamHint:"Saisissez le nom d'une équipe.",teamAiTitle:"Plus de contexte sur l'équipe ?",teamAiDesc:"Interrogez l'IA sur la forme et les confrontations.",openAi:"Ouvrir l'analyste IA",analysisStartTitle:"Choisir un match réel",analysisStartDesc:"Choisissez un match puis demandez une analyse. Les statistiques dépendent de l'API.",analysisPromptTitle:"Demande d'analyse",analysisPromptDesc:"L'analyse est probabiliste et non garantie.",askAi:"Demander à l'IA",vipIntro:"Comparaison, probabilités et forme des équipes. Aucun résultat n'est garanti.",compareTeams:"Comparer les équipes",compareTeamsDesc:"Forme, forces et faiblesses",probability:"Probabilités",probabilityDesc:"Scénarios possibles et incertitude",tactics:"Analyse tactique",tacticsDesc:"Styles et duels clés",askAnalyst:"Demander à l'analyste IA",askAnalystDesc:"Ouvrir l'assistant",aiPageDesc:"Espace dédié aux questions football",aiOnline:"Assistant d'analyse football",aiWelcome:"Bienvenue. Posez une question sur un match ou une équipe.",aiPlaceholder:"Question sur un match ou une équipe...",aiDisclaimer:"L'analyse peut être erronée et ne garantit pas le résultat.",language:"Langue",connectionTitle:"Connexion aux données",connectionDesc:"Les matchs utilisent /api/fixtures et l'assistant /api/chat.",checking:"Vérification…",chooseLanguage:"Choisissez une langue",searchLanguage:"Rechercher une langue...",loading:"Chargement des matchs réels…",noLive:"Aucun match en direct renvoyé par l'API actuellement.",apiUnavailable:"Impossible de charger les matchs. Vérifiez /api/fixtures.",noFixtures:"Aucun match pour cette date.",error:"Une erreur est survenue.",sent:"Analyse en cours…",homeMatches:"Accueil",statusLive:"Données de l'API football",teamSearchTitle:"Recherche d'équipe",teamNoApi:"La recherche d'équipe n'est pas configurée.",noResults:"Aucun résultat.",languageSaved:"Langue mise à jour",league:"Compétition",kickoff:"Début",status:"Statut",openMatch:"Analyser ce match avec l'IA",promptMatch:"Analyse ce match uniquement avec des données vérifiées",liveLabel:"DIRECT",aiFail:"Aucune réponse de /api/chat.",fixturesNeedApi:"Connectez /api/fixtures à API-Football.",vipDisclaimer:"À titre informatif uniquement."},
+es:{tagline:"INTELIGENCIA DE FÚTBOL",heroTitle:"Fútbol real. Análisis más profundo.",heroDesc:"Resultados en directo, estadísticas, forma de equipos y análisis de IA en un solo lugar.",liveNow:"PARTIDOS EN DIRECTO",viewAll:"Ver todos",explore:"EXPLORAR LA PLATAFORMA",liveMatches:"Partidos en directo",liveDesc:"Marcadores reales y minuto",upcoming:"Próximos partidos",upcomingDesc:"Calendario por fecha y liga",leagues:"Ligas y torneos",leaguesDesc:"Explorar competiciones",teams:"Buscar equipo",teamsDesc:"Encuentra un club y sus partidos",matchAnalysis:"Análisis del partido",analysisDesc:"Estadísticas, forma y contexto",vip:"VIP Élite",vipDesc:"Herramientas avanzadas",aiAnalyst:"Analista IA",aiDesc:"Pregunta al asistente de fútbol",settings:"Ajustes",settingsDesc:"Idioma y preferencias",dataNoteTitle:"ESTADO DE DATOS",dataNote:"Los partidos se obtienen de la API. No se inventan partidos.",home:"Inicio",matches:"Partidos",analysisNav:"Análisis",refresh:"Actualizar",fixturesDesc:"Partidos reales programados",today:"Hoy",tomorrow:"Mañana",inTwoDays:"En 2 días",leagueBrowse:"Competiciones",leagueBrowseDesc:"Depende de tu plan API.",viewFixtures:"Ver partidos",viewFixturesDesc:"Partidos reales de la API",search:"Buscar",teamHint:"Escribe el nombre de un equipo.",teamAiTitle:"¿Más contexto del equipo?",teamAiDesc:"Pregunta sobre forma y enfrentamientos.",openAi:"Abrir analista IA",analysisStartTitle:"Empieza con un partido real",analysisStartDesc:"Elige un partido. Las estadísticas dependen de la API.",analysisPromptTitle:"Solicitud de análisis",analysisPromptDesc:"El análisis es probabilístico y no está garantizado.",askAi:"Preguntar a la IA",vipIntro:"Comparaciones y probabilidades. Ningún resultado está garantizado.",compareTeams:"Comparar equipos",compareTeamsDesc:"Forma, fortalezas y debilidades",probability:"Probabilidades",probabilityDesc:"Escenarios e incertidumbre",tactics:"Análisis táctico",tacticsDesc:"Estilos y duelos clave",askAnalyst:"Preguntar al analista IA",askAnalystDesc:"Abrir el asistente",aiPageDesc:"Espacio para preguntas de fútbol",aiOnline:"Asistente de análisis de fútbol",aiWelcome:"Bienvenido. Pregunta por un partido o equipo.",aiPlaceholder:"Pregunta por un partido o equipo...",aiDisclaimer:"El análisis puede equivocarse y no garantiza resultados.",language:"Idioma",connectionTitle:"Conexión de datos",connectionDesc:"Los partidos usan /api/fixtures y el chat /api/chat.",checking:"Comprobando conexión…",chooseLanguage:"Elige tu idioma",searchLanguage:"Buscar idiomas...",loading:"Cargando partidos reales…",noLive:"La API no devuelve partidos en directo ahora.",apiUnavailable:"No se pudieron cargar partidos. Comprueba /api/fixtures.",noFixtures:"No hay partidos para esta fecha.",error:"Se produjo un error.",sent:"Analizando…",homeMatches:"Inicio",statusLive:"Datos de la API de fútbol",teamSearchTitle:"Buscar equipo",teamNoApi:"La búsqueda de equipos aún no está configurada.",noResults:"No hay resultados.",languageSaved:"Idioma actualizado",league:"Liga",kickoff:"Inicio",status:"Estado",openMatch:"Analizar partido con IA",promptMatch:"Analiza solo datos actuales verificados",liveLabel:"EN VIVO",aiFail:"No hay respuesta de /api/chat.",fixturesNeedApi:"Conecta /api/fixtures con API-Football.",vipDisclaimer:"Solo informativo."}
+};
+const LANGS=[
+["en","🇬🇧","English","English"],["ar","🇪🇬","العربية","Arabic"],["fr","🇫🇷","Français","French"],["es","🇪🇸","Español","Spanish"],["de","🇩🇪","Deutsch","German"],["it","🇮🇹","Italiano","Italian"],["pt","🇵🇹","Português","Portuguese"],["tr","🇹🇷","Türkçe","Turkish"],["ru","🇷🇺","Русский","Russian"],["zh","🇨🇳","中文","Chinese"],["ja","🇯🇵","日本語","Japanese"],["ko","🇰🇷","한국어","Korean"],["hi","🇮🇳","हिन्दी","Hindi"],["ur","🇵🇰","اردو","Urdu"],["id","🇮🇩","Bahasa Indonesia","Indonesian"],["nl","🇳🇱","Nederlands","Dutch"],["pl","🇵🇱","Polski","Polish"],["sv","🇸🇪","Svenska","Swedish"],["el","🇬🇷","Ελληνικά","Greek"],["th","🇹🇭","ไทย","Thai"],["vi","🇻🇳","Tiếng Việt","Vietnamese"],["fa","🇮🇷","فارسی","Persian"],["bn","🇧🇩","বাংলা","Bengali"],["he","🇮🇱","עברית","Hebrew"],["uk","🇺🇦","Українська","Ukrainian"],["ro","🇷🇴","Română","Romanian"],["cs","🇨🇿","Čeština","Czech"],["da","🇩🇰","Dansk","Danish"],["no","🇳🇴","Norsk","Norwegian"],["fi","🇫🇮","Suomi","Finnish"],["ms","🇲🇾","Bahasa Melayu","Malay"],["sw","🇰🇪","Kiswahili","Swahili"]];
+let currentLang=localStorage.getItem("aibet-lang")||"en";
+let activePage="home";
+const $=id=>document.getElementById(id);
+const t=key=>(I18N[currentLang]&&I18N[currentLang][key])||(I18N.en[key])||key;
+function openPage(name){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));const target=$("page-"+name);if(!target)return;target.classList.add("active");activePage=name;document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===name||(name==="home"&&b.dataset.page==="home")));window.scrollTo({top:0,behavior:"smooth"});if(name==="live")loadLiveMatches();if(name==="upcoming")loadUpcoming(0);if(name==="settings")checkApiStatus();}
+function goHome(){openPage("home")}
+function toast(msg){const el=$("toast");el.textContent=msg;el.style.display="block";clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.style.display="none",2600)}
+function openLanguages(){$("lang-modal").classList.add("open");$("language-search").value="";renderLanguageList("");}
+function closeLanguages(){$("lang-modal").classList.remove("open")}
+function renderLanguageList(q){const list=$("language-list");list.innerHTML="";const filtered=LANGS.filter(x=>(x[2]+" "+x[3]+" "+x[0]).toLowerCase().includes((q||"").toLowerCase()));filtered.forEach(x=>{const b=document.createElement("button");b.className="lang-option"+(currentLang===x[0]?" active":"");b.innerHTML=`<span>${x[1]} ${escapeHtml(x[2])}</span><small>${escapeHtml(x[3])}</small>`;b.onclick=()=>setLanguage(x[0]);list.appendChild(b)});if(!filtered.length)list.innerHTML='<div class="empty">No languages found.</div>'}
+function setLanguage(lang){currentLang=lang;localStorage.setItem("aibet-lang",lang);document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"||lang==="fa"||lang==="ur"||lang==="he"?"rtl":"ltr";document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(t(key))el.textContent=t(key)});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));$("settings-lang").textContent=(LANGS.find(x=>x[0]===lang)||LANGS[0])[2];$("language-search").placeholder=t("searchLanguage");closeLanguages();renderLanguageList("");toast(t("languageSaved"))}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function teamLogo(team){return team?.logo||""}
+function fixtureCard(f,compact=false){const home=f.teams?.home||{},away=f.teams?.away||{},goals=f.goals||{},status=f.fixture?.status||{};const isLive=["1H","HT","2H","ET","P","LIVE","BT"].includes(status.short);const minute=status.elapsed!=null?`${status.elapsed}'`:status.long||"";const homeScore=goals.home==null?"–":goals.home,awayScore=goals.away==null?"–":goals.away;const date=f.fixture?.date?new Date(f.fixture.date):null;const dateText=date&&!Number.isNaN(date.getTime())?date.toLocaleString(currentLang,{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"}):"";return `<article class="match-card"><div class="match-top"><span>${escapeHtml(f.league?.name||t("league"))}</span><span class="${isLive?"live-badge":"pill"}">${isLive?(escapeHtml(minute||t("liveLabel"))):escapeHtml(status.long||dateText||t("upcoming"))}</span></div><div class="teams"><div class="team">${teamLogo(home)?`<img src="${escapeHtml(teamLogo(home))}" alt="" loading="lazy">`:"<span style='font-size:30px'>⚽</span>"}<span>${escapeHtml(home.name||"Home")}</span></div><div class="score">${homeScore} : ${awayScore}<small>${escapeHtml(dateText)}</small></div><div class="team">${teamLogo(away)?`<img src="${escapeHtml(teamLogo(away))}" alt="" loading="lazy">`:"<span style='font-size:30px'>⚽</span>"}<span>${escapeHtml(away.name||"Away")}</span></div></div><button class="primary" style="width:100%;margin-top:13px" onclick="askAboutFixture('${escapeHtml((home.name||"")+" vs "+(away.name||""))}','${escapeHtml(f.league?.name||"")}','${escapeHtml(dateText)}','${homeScore}-${awayScore}','${isLive?"live":"fixture"}')" data-i18n="openMatch">${t("openMatch")}</button></article>`}
+function renderFixtures(target,fixtures,emptyKey){const el=$(target);if(!Array.isArray(fixtures)||!fixtures.length){el.innerHTML=`<div class="empty">${t(emptyKey)}</div>`;return}el.innerHTML=fixtures.map(f=>fixtureCard(f)).join("")}
+async function getJson(url){const r=await fetch(url,{headers:{Accept:"application/json"}});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||data.message||`HTTP ${r.status}`);return data}
+function unwrapFixtures(data){if(Array.isArray(data))return data;if(Array.isArray(data.response))return data.response;if(Array.isArray(data.fixtures))return data.fixtures;if(Array.isArray(data.data))return data.data;if(data.data&&Array.isArray(data.data.response))return data.data.response;return null}
+async function loadLiveMatches(force=false){const home=$("home-live"),list=$("live-list");if(list)list.innerHTML='<div class="skeleton"></div>';try{let data;try{data=await getJson("/api/fixtures?live=all")}catch(e){data=await getJson("/api/fixtures?live=true")}const fixtures=unwrapFixtures(data);if(fixtures===null)throw new Error("Unexpected fixture API response");renderFixtures("home-live",fixtures,"noLive");if(list)renderFixtures("live-list",fixtures,"noLive");$("live-status").textContent=fixtures.length?t("statusLive"):"";}catch(e){const msg=t("apiUnavailable");home.innerHTML=`<div class="notice">${escapeHtml(msg)}</div>`;if(list)list.innerHTML=`<div class="notice">${escapeHtml(msg)}<br><br>${escapeHtml(t("fixturesNeedApi"))}</div>`;$("live-status").textContent="";} }
+async function loadUpcoming(offset=0){const list=$("upcoming-list");if(!list)return;list.innerHTML='<div class="skeleton"></div>';const date=new Date();date.setDate(date.getDate()+offset);const dateStr=[date.getFullYear(),String(date.getMonth()+1).padStart(2,"0"),String(date.getDate()).padStart(2,"0")].join("-");try{let data;try{data=await getJson(`/api/fixtures?date=${dateStr}`)}catch(e){data=await getJson(`/api/fixtures?from=${dateStr}&to=${dateStr}`)}const fixtures=unwrapFixtures(data);if(fixtures===null)throw new Error("Unexpected fixture API response");renderFixtures("upcoming-list",fixtures,"noFixtures")}catch(e){list.innerHTML=`<div class="notice">${escapeHtml(t("apiUnavailable"))}<br><br>${escapeHtml(t("fixturesNeedApi"))}</div>`}}
+async function searchTeam(){const query=$("team-query").value.trim();const results=$("team-results");if(!query)return toast(t("teamHint"));results.innerHTML='<div class="skeleton"></div>';try{const data=await getJson(`/api/teams?search=${encodeURIComponent(query)}`);const teams=Array.isArray(data)?data:(data.response||data.teams||data.data||[]);if(!teams.length){results.innerHTML=`<div class="empty">${t("noResults")}</div>`;return}results.innerHTML=teams.map(x=>{const team=x.team||x;return `<button class="row-card" style="width:100%;text-align:start" onclick="askAIWith('Give an evidence-based overview of ${escapeHtml(team.name||query)}. Clearly distinguish verified data from unknown details.')">${team.logo?`<img src="${escapeHtml(team.logo)}" style="width:36px;height:36px;object-fit:contain" alt="">`:"⚽"}<span style="flex:1"><h3>${escapeHtml(team.name||query)}</h3><p>${escapeHtml(x.country||"")}</p></span><span>›</span></button>`}).join("")}catch(e){results.innerHTML=`<div class="notice">${t("teamNoApi")}</div><button class="primary" style="margin-top:10px" onclick="askAIWith(${JSON.stringify("Give an overview of the football team: "+query+". Do not invent current statistics or injuries.")})">${t("openAi")}</button>`}}
+function askAboutFixture(match,league,date,score,type){const prompt=`${t("promptMatch")}: ${match}. Competition: ${league}. Kickoff/time: ${date}. Score shown by API: ${score}. Match type: ${type}. Respond in ${LANGS.find(x=>x[0]===currentLang)?.[3]||"English"}. Do not invent missing statistics; state if current data is unavailable.`;askAIWith(prompt)}
+function askAIWith(prompt){openPage("ai");$("ai-input").value=prompt;sendAI()}
+async function sendAI(){const input=$("ai-input"),text=input.value.trim();if(!text)return;const box=$("ai-messages"),user=document.createElement("div");user.className="bubble user";user.textContent=text;box.appendChild(user);input.value="";const loading=document.createElement("div");loading.className="bubble ai";loading.textContent=t("sent");box.appendChild(loading);box.scrollTop=box.scrollHeight;try{const response=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:text,language:currentLang})});const data=await response.json();if(!response.ok)throw new Error(data.error||data.reply||"API error");loading.textContent=data.reply||data.text||t("aiFail")}catch(e){loading.textContent=t("aiFail")}box.scrollTop=box.scrollHeight}
+async function checkApiStatus(){const el=$("settings-api-status");el.textContent=t("checking");try{const data=await getJson("/api/fixtures?live=all");const f=unwrapFixtures(data);el.textContent=f===null?t("apiUnavailable"):`${t("statusLive")} · ${f.length}`;}catch(e){el.textContent=t("fixturesNeedApi")}}
+function init(){setLanguage(currentLang);loadLiveMatches();$("team-query").addEventListener("keydown",e=>{if(e.key==="Enter")searchTeam()});}
+init();
+</script>
 </body>
 </html>
