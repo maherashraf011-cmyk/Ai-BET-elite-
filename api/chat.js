@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   const { prompt } = req.body;
   
   // حط مفتاح الـ AIzaSy بتاعك هنا مباشرة بين علامتي التنصيص
-  const apiKey = AIzaSyCMXueXqJY6kooZ0kY2R2b3grGOdrjYK5w";
+  const apiKey = AQ.Ab8RN6JANVNVQgXq8ZUzjjBcpf45UAOe3PNfhw8HZrmyQYtWvA";
 
   if (!prompt) {
     return res.status(400).json({ error: "يرجى إدخال نص" });
