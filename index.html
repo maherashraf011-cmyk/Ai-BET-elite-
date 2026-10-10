@@ -38,7 +38,7 @@
             flex: 1;
             overflow-y: auto;
             padding: 16px;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         /* الهيدر الجديد مع AI BET ELITE */
@@ -102,6 +102,28 @@
             font-size: 15px;
             font-weight: bold;
             color: var(--golden-accent);
+        }
+
+        /* صندوق عرض الردود */
+        .response-box {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 183, 77, 0.3);
+            display: none;
+        }
+
+        .response-box h4 {
+            font-size: 13px;
+            color: var(--golden-accent);
+            margin-bottom: 6px;
+        }
+
+        .response-box p {
+            font-size: 13px;
+            color: var(--text-color);
+            line-height: 1.5;
         }
 
         /* شبكة الخيارات */
@@ -184,7 +206,7 @@
             padding: 10px 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -192,26 +214,49 @@
             z-index: 1000;
         }
 
-        .chat-input {
+        .chat-input-wrapper {
             flex: 1;
             background-color: var(--input-bg);
             border-radius: 20px;
-            padding: 8px 14px;
+            padding: 6px 14px;
             display: flex;
             align-items: center;
-            color: var(--sub-text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-input-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
             font-size: 13px;
+            outline: none;
+            font-family: 'Tajawal', sans-serif;
         }
 
-        .chat-input i {
-            font-size: 16px;
+        .chat-input-wrapper input::placeholder {
             color: var(--sub-text);
-            margin-left: 8px;
         }
 
-        .icon-menu { font-size: 20px; color: var(--sub-text); }
-        .icon-mic { font-size: 18px; color: var(--sub-text); }
-        .icon-image { font-size: 18px; color: var(--sub-text); }
+        .send-btn {
+            background-color: var(--primary-accent);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .send-btn:active {
+            opacity: 0.8;
+        }
+
+        .icon-menu { font-size: 20px; color: var(--sub-text); cursor: pointer; }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -237,24 +282,30 @@
             <h2>اختر قسم التحليل للبدء:</h2>
         </div>
 
+        <!-- صندوق عرض رد الـ AI -->
+        <div id="responseBox" class="response-box">
+            <h4>تحليل الـ AI:</h4>
+            <p id="responseText">جاري انتظار السؤال...</p>
+        </div>
+
         <!-- شبكة الخيارات -->
         <div class="options-grid">
-            <div class="option-card">
+            <div class="option-card" onclick="askQuick('أعطني توقعات المباريات الحية اليوم')">
                 <i class="far fa-futbol option-icon icon-live"></i>
                 <h3>المباريات الحية</h3>
                 <p>تحديثات وتحليلات مباشرة</p>
             </div>
-            <div class="option-card">
+            <div class="option-card" onclick="askQuick('ما هي أهم مباريات اليوم القادمة؟')">
                 <i class="far fa-calendar-alt option-icon icon-upcoming"></i>
                 <h3>مباريات قادمة</h3>
                 <p>توقعات اليوم والغد</p>
             </div>
-            <div class="option-card">
+            <div class="option-card" onclick="askQuick('ابحث لي عن حالة الفريقين الأبرز اليوم')">
                 <i class="fas fa-search option-icon icon-search"></i>
                 <h3>البحث عن فريق</h3>
                 <p>قراءة شاملة لحالة الفرق</p>
             </div>
-            <div class="option-card vip">
+            <div class="option-card vip" onclick="askQuick('ما هي توقعات الأرباح الحصرية لـ VIP النخبة؟')">
                 <i class="fas fa-crown option-icon icon-vip"></i>
                 <h3>VIP النخبة</h3>
                 <p>توقعات الأرباح الحصرية</p>
@@ -271,24 +322,71 @@
     <!-- شات بار السفلي -->
     <div class="chat-bar">
         <i class="fas fa-bars icon-menu"></i>
-        <div class="chat-input">
-            <i class="far fa-face-smile"></i>
-            <span>اسأل محلل الـ AI عن أي مباراة...</span>
+        <div class="chat-input-wrapper">
+            <input type="text" id="userInput" placeholder="اسأل محلل الـ AI عن أي مباراة...">
         </div>
-        <i class="fas fa-image icon-image"></i>
-        <i class="fas fa-microphone icon-mic"></i>
+        <button class="send-btn" onclick="sendPrompt()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         
+        // تأثير الهزة عند الضغط على الكروت
         const cards = document.querySelectorAll('.option-card');
         cards.forEach(card => {
             card.addEventListener('click', () => {
-                tg.HapticFeedback.impactOccurred('medium'); // هزة خفيفة زي التطبيقات الكبيرة
+                if(tg.HapticFeedback) {
+                    tg.HapticFeedback.impactOccurred('medium');
+                }
             });
         });
+
+        // دالة إرسال النص للـ API
+        async function sendPrompt() {
+            const inputField = document.getElementById('userInput');
+            const promptText = inputField.value.trim();
+            const responseBox = document.getElementById('responseBox');
+            const responseText = document.getElementById('responseText');
+
+            if (!promptText) return;
+
+            responseBox.style.display = 'block';
+            responseText.innerHTML = 'جاري تحليل البيانات بواسطة الـ AI... ⏳';
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt: promptText })
+                });
+
+                const data = await response.json();
+                
+                if (data && data.reply) {
+                    responseText.innerHTML = data.reply;
+                } else if (data && data.error) {
+                    responseText.innerHTML = 'خطأ من السيرفر: ' + data.error;
+                } else {
+                    responseText.innerHTML = 'تم الإرسال بنجاح، بانتظار الرد.';
+                }
+            } catch (error) {
+                console.error("خطأ في الاتصال:", error);
+                responseText.innerHTML = 'عذراً، حدث خطأ أثناء الاتصال بالخادم. تأكد من إعدادات الـ API.';
+            }
+
+            inputField.value = '';
+        }
+
+        // دالة مساعدة للأزرار السريعة
+        function askQuick(question) {
+            document.getElementById('userInput').value = question;
+            sendPrompt();
+        }
     </script>
 </body>
 </html>
